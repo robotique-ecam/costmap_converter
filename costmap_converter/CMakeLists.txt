@@ -44,7 +44,7 @@ include_directories(
 )
 
 add_library(costmap_converter SHARED
-  src/costmap_to_polygons.cpp 
+  src/costmap_to_polygons.cpp
   src/costmap_to_polygons_concave.cpp
   src/costmap_to_lines_convex_hull.cpp
   src/costmap_to_lines_ransac.cpp
@@ -56,24 +56,14 @@ add_library(costmap_converter SHARED
   src/costmap_to_dynamic_obstacles/multitarget_tracker/HungarianAlg.cpp
 )
 
-ament_target_dependencies(costmap_converter 
+ament_target_dependencies(costmap_converter
     ${dependencies}
 )
 
-add_executable(standalone_converter src/costmap_converter_node.cpp)
 
-target_link_libraries(standalone_converter
-    costmap_converter
-)
-ament_target_dependencies(standalone_converter
-  ${dependencies}
-)
 
 install(TARGETS costmap_converter
    DESTINATION lib
-)
-install(TARGETS standalone_converter
-   DESTINATION bin
 )
 
 install(DIRECTORY include/
@@ -89,7 +79,7 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(test_costmap_polygons test/costmap_polygons.cpp)
   if(TARGET test_costmap_polygons)
-    target_link_libraries(test_costmap_polygons costmap_converter)  
+    target_link_libraries(test_costmap_polygons costmap_converter)
   endif()
   ament_target_dependencies(test_costmap_polygons ${dependencies})
 endif()
